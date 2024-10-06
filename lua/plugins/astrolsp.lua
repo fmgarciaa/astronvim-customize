@@ -19,7 +19,6 @@ return {
           "TypeScript",
           "Lua",
           "yaml",
-          "groovy"
         },
         ignore_filetypes = {},
       },
@@ -31,7 +30,6 @@ return {
       "vimls",
       "bashls",
       "gopls",
-      "groovyls", -- Groovy Language Server
       "html",
       "ts_ls",
       "pyright",
@@ -40,14 +38,6 @@ return {
       "yamlls",
     },
     config = {
-      -- Custom configuration for Groovy Language Server
-      groovyls = {
-        cmd = { "java", "-jar", "/home/ender/groovy-language-server/build/libs/groovy-language-server-all.jar" },
-        filetypes = { "groovy" },
-        root_dir = function()
-          return vim.fn.getcwd()
-        end,
-      },
       clangd = { capabilities = { offsetEncoding = "utf-8" } },
     },
     handlers = {

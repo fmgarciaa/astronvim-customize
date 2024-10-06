@@ -27,25 +27,43 @@ if not pcall(require, "lazy") then
   vim.cmd.quit()
 end
 
--- Vimscript code for clipboard settings in WSL (Windows Subsystem for Linux)
+-- Clipboard settings for WSL (Windows Subsystem for Linux)
 -- Uncomment this code to activate clipboard integration in WSL.
 -- This configuration uses Windows utilities (clip.exe and powershell.exe) to handle clipboard operations.
+-- vim.g.clipboard = {
+--   name = "WslClipboard",
+--   copy = {
+--     ["+"] = "clip.exe", -- Use clip.exe to copy to the clipboard
+--     ["*"] = "clip.exe", -- Use clip.exe for both '*' and '+' registers
+--   },
+--   paste = {
+--     ["+"] = "powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace('`r', ''))", -- Paste from clipboard using PowerShell
+--     ["*"] = "powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace('`r', ''))", -- Paste for both '*' and '+' registers
+--   },
+--   cache_enabled = 0, -- Disable clipboard cache
+-- }
+
+-- Clipboard configuration for macOS
 vim.g.clipboard = {
-  name = "WslClipboard",
+  name = "MacOSClipboard",
   copy = {
-    ["+"] = "clip.exe", -- Usa clip.exe para copiar al portapapeles
-    ["*"] = "clip.exe", -- Usa clip.exe para ambos registros '*' y '+'
+    ["+"] = "pbcopy", -- Use pbcopy for the '+' register
+    ["*"] = "pbcopy", -- Use pbcopy for the '*' register
   },
   paste = {
-    ["+"] = "powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace('`r', ''))", -- Pegar desde el portapapeles usando PowerShell
-    ["*"] = "powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace('`r', ''))", -- Pegar para ambos registros '*' y '+'
+    ["+"] = "pbpaste", -- Use pbpaste to paste from the '+' register
+    ["*"] = "pbpaste", -- Use pbpaste to paste from the '*' register
   },
-  cache_enabled = 0, -- Deshabilitar cache de portapapeles
+  cache_enabled = 0, -- Disable clipboard cache
 }
 
 vim.g.python3_host_prog = "/usr/bin/python3"
--- Cambiar el color de los espacios en blanco
-vim.opt.termguicolors = true
-require "lazy_setup" -- Load Lazy.nvim setup configuration
-require "polish" -- Load custom polish configurations
 
+-- Enable true color in terminal
+vim.opt.termguicolors = true
+
+-- Load Lazy.nvim setup configuration
+require "lazy_setup"
+
+-- Load custom polish configurations
+require "polish"
